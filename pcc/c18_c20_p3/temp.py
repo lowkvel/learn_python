@@ -55,4 +55,10 @@ Run the command "python manage.py runserver port_id" on another port
 Run the command "python manage.py startapp app_name" to start an app under the project
 """
 
-
+# defining/activating models
+"""
+define the models in models.py (app folder)
+activating the models in settings.py (project folder)
+Run the command "python manage.py makemigrations learning_logs" to make migrations (design the database modifications)
+Run the command "python manage.py migrate" to migrate (apply the database modifications)
+"""
