@@ -70,3 +70,14 @@ import the models from models.py we want to register into admin.py by using "fro
 register/manage the models from models.py through the admin site by using "admin.site.register(Topic)"
 * no need for restarting the server
 """
+
+# make pages, 1 defining URLs, 2 writing views, 3 writing templates
+"""
+defining URLs in urls.py from the project folder by using "path('', include('app_name.urls')),"
+defining URLs in urls.py from the app folder by using "app_name=..., urlpatterns=[...]"
+writing views in views.py from the app folder by using "render(request, template)"
+writing templates in app_folder/templates/app_folder
+"""
+
+
+
