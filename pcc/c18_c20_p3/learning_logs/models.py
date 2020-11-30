@@ -10,6 +10,20 @@ class Topic(models.Model):
         # return a string representation of the model
         return self.text
 
+class Entry(models.Model):
+    # something specific learned about a topic, m-1 relationship
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    """
+    The on_delete=models.CASCADE argument tells Django that when a topic is deleted, 
+    all the entries associated with that topic should be deleted as well. This is known as a cascading delete.
+    """
+    text = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name_plural = 'entries'
 
-        
+    def __str__(self):
+        # return a string reprentation of the  model
+        return f"{self.text[:50]}..."   # only the first 50 characters will be shown
+
