@@ -43,3 +43,16 @@ The wsgi.py file helps Django serve the files it creates. The filename is an acr
 """
 Run the command "python manage.py migrate" to create the database
 """
+
+# view the project on localhost
+"""
+Run the command "python manage.py runserver" to view the project
+Run the command "python manage.py runserver port_id" on another port
+"""
+
+# start an App under the project
+"""
+Run the command "python manage.py startapp app_name" to start an app under the project
+"""
+
+
