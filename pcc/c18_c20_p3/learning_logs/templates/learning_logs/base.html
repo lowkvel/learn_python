@@ -1,17 +1,55 @@
-<p>
-    <a href="{% url 'learning_logs:index' %}">Learning Log</a>
-    <a href="{% url 'learning_logs:topics' %}">Topics</a>
+{% load bootstrap4 %}   <!--load bootstrat4-->
 
-    {% if user.is_authenticated %}
-        Hello, {{ user.username }}.
-        <a href="{% url 'users:logout' %}">Log out</a>
-    {% else %}
-        <a href="{% url 'users:register' %}">Register</a>
-        <a href="{% url 'users:login' %}">Log in</a>
-    {% endif %}
-</p>
+<!doctype html>     <!--declare this file as an HTML document-->
+<html lang="en">    <!--written in English-->
 
-{% block content %}
+<head>              <!--the head begins here-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Learning Log</title>     <!--title element for the page-->
+    {% bootstrap_css %}                         <!--enable all bootstrap4 css-->
+    {% bootstrap_javascript jquery='full' %}    <!--enable all bootstrap4 js-->
+</head>             <!--the head ends here-->
 
-{% endblock content %}
+<body>              <!--the body begins here-->
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+        <a class="navbar-brand" href="{% url 'learning_logs:index'%}">Learning Log</a>
+        <button class="navbar-toggler" 
+                type="button" 
+                data-toggle="collapse" 
+                data-target="#navbarCollapse" 
+                aria-controls="navbarCollapse" 
+                aria-expanded="false" 
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'learning_logs:topics'%}">Topics</a></li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><span class="navbar-text">Hello, {{ user.username }}.</span></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}">Log out</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'users:register' %}">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">Log in</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    
+    <main role="main" class="container">
+        <div class="pb-2 mb-2 border-bottom">
+            {% block page_header %}
+            {% endblock page_header %}
+        </div>
+        <div>   <!-- no style for this div section, so the the page inherited from here can have their own style -->
+            {% block content %}
 
+            {% endblock content %}
+        </div>
+    </main>
+</body>
+
+</html>
