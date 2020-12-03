@@ -1,16 +1,22 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 
 # Create your views here.
+# unprotect view
 def index(request):
     # the home page for learning log
     return render(request, 'learning_logs/index.html')
 
+# the decorator @login_required() will be run before the code in topic(), 
+# the user will be redirected to the login page if not logged in, check the end of settings.py
+@login_required
 def topics(request):
     # show all topics
-    topics = Topic.objects.order_by('date_added')
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added')    # show topics belong to the logged in user
     context = {'topics': topics}
     """
     A context is a dictionary in which 
@@ -19,13 +25,18 @@ def topics(request):
     """
     return render(request, 'learning_logs/topics.html', context)
 
+@login_required
 def topic(request, topic_id):
     # show a single topic and all its entries
     topic = Topic.objects.get(id=topic_id)
+    # Make sure the topic belongs to the current user.
+    if topic.owner != request.user:
+        raise Http404
     entries = topic.entry_set.order_by('-date_added')   # in reverse order
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
 
+@login_required 
 def new_topic(request):
     # add a new topic to database
     # 1. initial [request] for the new_topic page, blank form shown
@@ -37,15 +48,21 @@ def new_topic(request):
         form = TopicForm(data=request.POST)     # POST data submitted, process data
         # checks that all required fields have been filled in (all fields in a form are required by default) and 
         # that the data entered matches the field types expected
-        if form.is_valid():             
-            form.save()
+        if form.is_valid():
+            new_topic = form.save(commit=False) # not saved into the database yet, commit=False
+            new_topic.owner = request.user      # modify some attribute
+            new_topic.save()                    # then save 
             return redirect('learning_logs:topics')
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
 
+@login_required 
 def new_entry(request, topic_id):
     # add a new entry for a particular topic
     topic = Topic.objects.get(id=topic_id)
+    # Make sure the topic belongs to the current user. Only the correct user can edit their topics.
+    if topic.owner != request.user:
+        raise Http404
     if request.method != 'POST':
         form = EntryForm()  # no data submitted, create a blank form
     else:
@@ -58,10 +75,14 @@ def new_entry(request, topic_id):
     context = {'topic': topic, 'form': form}
     return render(request, 'learning_logs/new_entry.html', context)
 
+@login_required 
 def edit_entry(request, entry_id):
     # edit an existing entry
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
+    # Make sure the topic belongs to the current user. Only the correct user can edit their topics.
+    if topic.owner != request.user:
+        raise Http404
     if request.method != 'POST':
         # Initial request; pre-fill form with the current entry.
         form = EntryForm(instance=entry)    # create a entry form prefilled with current existing entry object, not blank
