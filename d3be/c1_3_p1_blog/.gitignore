@@ -1,0 +1,4 @@
+env_blog/
+__pycache__/
+*.sqlite3
+.DS_Store
