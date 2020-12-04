@@ -79,9 +79,8 @@ Run the command "python manage.py migrate" to migrate (apply the database modifi
 # setting up admin, import/register models for administration
 """
 Run the command "python manage.py createsuperuser" to create a superuser
-import the models from models.py we want to register into admin.py by using "from .models import Topic"
-register/manage the models from models.py through the admin site by using "admin.site.register(Topic)"
-* no need for restarting the server
+import the models from models.py we want to register into admin.py by using "from .models import Model_name"
+register/manage the models from models.py through the admin site by using "admin.site.register(Model_name)" or use "@admin.register()"
 """
 
 # make pages, 1 defining URLs, 2 writing views, 3 writing templates
@@ -92,5 +91,12 @@ writing views in views.py from the app folder by using "render(request, template
 writing templates in app_folder/templates/app_folder
 """
 
-
+# ORM: object-relational mapper
+"""
+Post.objects.all()                                                          # default manager: objects. basic retrieve method
+Post.objects.filter(publish__year=2020, author__username='admin')           # multiple fields filter, using field__attribute='target_value'
+Post.objects.filter(publish__year=2020).exclude(title__startswith='Why')    # exclude specific results, similar to filter
+Post.objects.order_by('-title')                                             # ordering in reverse order of title
+post = Post.objects.get(id=1), then post.delete()                           # delete objects
+"""
 
