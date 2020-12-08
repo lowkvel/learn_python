@@ -19,7 +19,7 @@ Run the command "pip install django" to install Django on current venv
 """
 Create a file named .gitignore under the project folder
 Put the following path and filename into the file
-env_blog/               new_env path
+new_env/                new_env path
 __pycache__/            pycache path
 *.sqlite3               databse name
 .DS_Store               extras
@@ -70,7 +70,7 @@ The migrations directory contains the database migrations of the new_app
 # defining/activating/migrating models
 """
 define the models in models.py (app folder)
-activating the models in settings.py (project folder)
+activating the models in settings.py (project folder) by adding the local app to the end of the file
 Run the command "python manage.py makemigrations learning_logs" to make migrations (design the database modifications)
 * Run the command "python manage.py sqlmigrate new_app 0001" to check the SQL code for the migrations
 Run the command "python manage.py migrate" to migrate (apply the database modifications)
