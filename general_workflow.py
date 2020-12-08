@@ -1,9 +1,14 @@
 # temp
 
+# 0 create a folder for all code
+"""
+Create a new directory for the project named new_dir, 
+then cd into the directory new_dir
+"""
+
 # 1 create and use a new venv for a new project
 """
-Create a new directory for the project named new_dir, then cd into the directory new_dir created before
-Run the command "python -m venv new_venv" to create a new venv
+Run the command "python -m venv new_venv" to create a new venv under the new_dir
 Run the command "source new_venv/bin/activate" to activate the new venv
 Run the command "deactivate" to deactivate the new venv if needed
 * the new venv folder "new_venv" will be located under new_dir
@@ -11,13 +16,13 @@ Run the command "deactivate" to deactivate the new venv if needed
 
 # 2 install Django for the new venv
 """
-Run the command "pip install django" to install Django on current venv
+Run the command "pip install django" to install Django for current venv
 * the Django packages will be located under new_dir/new_venv/...
 """
 
-# 2.1 create a .gitignore file for the project
+# 2.1 create a .gitignore file
 """
-Create a file named .gitignore under the project folder
+Create a file named .gitignore under the new_dir
 Put the following path and filename into the file
 new_env/                new_env path
 __pycache__/            pycache path
@@ -57,6 +62,7 @@ or as an ASGI application using a server like Uvicorn or Daphne
 
 # 4 start an application under the project
 """
+CD into the folder new_dir/new_project
 Run the command "python manage.py startapp new_app" to start an app under the project
 * the app folders "new_app" will be located under new_dir/new_project
 Adding the full app config of the local app to the end of the file settings.py
