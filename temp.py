@@ -59,6 +59,7 @@ or as an ASGI application using a server like Uvicorn or Daphne
 """
 Run the command "python manage.py startapp new_app" to start an app under the project
 * the app folders "new_app" will be located under new_dir/new_project
+Adding the full app config of the local app to the end of the file settings.py
 The admin.py is where the register models to include
 The apps.py includes the main configuration of the new_app
 The models.py includes the data models of the new_app
@@ -70,7 +71,6 @@ The migrations directory contains the database migrations of the new_app
 # defining/activating/migrating models
 """
 define the models in models.py (app folder)
-activating the models in settings.py (project folder) by adding the local app to the end of the file
 Run the command "python manage.py makemigrations learning_logs" to make migrations (design the database modifications)
 * Run the command "python manage.py sqlmigrate new_app 0001" to check the SQL code for the migrations
 Run the command "python manage.py migrate" to migrate (apply the database modifications)
