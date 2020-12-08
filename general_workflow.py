@@ -1,6 +1,6 @@
 # temp
 
-# create and use a new venv for a new project
+# 1 create and use a new venv for a new project
 """
 Create a new directory for the project named new_dir, then cd into the directory new_dir created before
 Run the command "python -m venv new_venv" to create a new venv
@@ -9,13 +9,13 @@ Run the command "deactivate" to deactivate the new venv if needed
 * the new venv folder "new_venv" will be located under new_dir
 """
 
-# install Django for the new venv
+# 2 install Django for the new venv
 """
 Run the command "pip install django" to install Django on current venv
 * the Django packages will be located under new_dir/new_venv/...
 """
 
-# create a .gitignore file for the project
+# 2.1 create a .gitignore file for the project
 """
 Create a file named .gitignore under the project folder
 Put the following path and filename into the file
@@ -25,7 +25,7 @@ __pycache__/            pycache path
 .DS_Store               extras
 """
 
-# create a Django project under the new venv
+# 3 create a Django project under the new venv
 """
 Run the command "django-admin startproject new_project ." to create a Django project
 * the project folders "new_project" will be located under new_dir
@@ -37,25 +37,25 @@ The wsgi.py file is the configuration to run the project as WSGI, for web server
 The asgi.py file is the configuration to run the project as ASGI, for asynchronous web servers and applications.
 """
 
-# create the database for the project
+# 3.1 create the database for the project
 """
 Run the command "python manage.py migrate" to create the database
 """
 
-# view the project on localhost, the development server
+# 3.2 view the project on localhost, the development server
 """
 Run the command "python manage.py runserver" to view the project
 Run the command "python manage.py runserver port_id" on another port
 """
 
-# going to production server
+# 3.x going to production server
 """
 In order to deploy Django in a production environment, 
 run it as a WSGI application using a web server, such as Apache, Gunicorn, or uWSGI, 
 or as an ASGI application using a server like Uvicorn or Daphne
 """
 
-# start an application under the project
+# 4 start an application under the project
 """
 Run the command "python manage.py startapp new_app" to start an app under the project
 * the app folders "new_app" will be located under new_dir/new_project
@@ -68,7 +68,7 @@ The views.py is where the new_app logic goes, each views receives an http reques
 The migrations directory contains the database migrations of the new_app
 """
 
-# defining/activating/migrating models
+# 5 defining/activating/migrating models
 """
 define the models in models.py (app folder)
 Run the command "python manage.py makemigrations learning_logs" to make migrations (design the database modifications)
@@ -76,14 +76,14 @@ Run the command "python manage.py makemigrations learning_logs" to make migratio
 Run the command "python manage.py migrate" to migrate (apply the database modifications)
 """
 
-# setting up admin, import/register models for administration
+# 6 setting up admin, import/register models for administration
 """
 Run the command "python manage.py createsuperuser" to create a superuser
 import the models from models.py we want to register into admin.py by using "from .models import Model_name"
 register/manage the models from models.py through the admin site by using "admin.site.register(Model_name)" or use "@admin.register()"
 """
 
-# make pages, 1 defining URLs, 2 writing views, 3 writing templates
+# 7 make pages, 1 defining URLs, 2 writing views, 3 writing templates
 """
 defining URLs in urls.py from the project folder by using "path('', include('new_app.urls')),"
 defining URLs in urls.py from the app folder by using "new_app=..., urlpatterns=[...]"
@@ -91,7 +91,7 @@ writing views in views.py from the app folder by using "render(request, template
 writing templates in app_folder/templates/app_folder
 """
 
-# ORM: object-relational mapper
+# x ORM: object-relational mapper
 """
 Post.objects.all()                                                          # default manager: objects. basic retrieve method
 Post.objects.filter(publish__year=2020, author__username='admin')           # multiple fields filter, using field__attribute='target_value'
