@@ -105,4 +105,3 @@ Post.objects.filter(publish__year=2020).exclude(title__startswith='Why')    # ex
 Post.objects.order_by('-title')                                             # ordering in reverse order of title
 post = Post.objects.get(id=1), then post.delete()                           # delete objects
 """
-
