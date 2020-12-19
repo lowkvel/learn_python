@@ -4,6 +4,7 @@
 """
 Create a new directory for the project named new_dir, 
 then cd into the directory new_dir
+this is the overall project folder, will contain many none-src files, such as venv folder, .gitignore, README.md, etc
 """
 
 # 1 create and use a new venv for a new project
@@ -104,4 +105,64 @@ Post.objects.filter(publish__year=2020, author__username='admin')           # mu
 Post.objects.filter(publish__year=2020).exclude(title__startswith='Why')    # exclude specific results, similar to filter
 Post.objects.order_by('-title')                                             # ordering in reverse order of title
 post = Post.objects.get(id=1), then post.delete()                           # delete objects
+"""
+
+# some common methods in models
+"""
+fields
+managers
+class Meta
+def __str__
+def save
+def get_absolute_url
+"""
+
+# general project structure
+"""
+project/                overall project folder, contains many none-code files and folders
+    LICENCE             open source licences
+    MANIFEST.in         along with setup.py
+    README.md           introduction to the project
+    conf/               configuration files, such as nginx, supervisor, etc
+    fabfile/            for Fabric
+    others/             docs, project requirements files, etc
+    requirements.txt    dependency file list, pip install -r requirements.txt
+    setup.py            used for packaging project
+    .gitignore          pyc, logs, etc
+
+    project_venv/       venv for project, "python -m venv new_venv", "source new_venv/bin/activate", "pip install django", etc
+        ...
+
+    project(src)/       source code for project, "django-admin startproject new_project ."
+        project app/            normal version
+            __init__.py
+            asgi.py
+            settings.py
+            urls.py
+            wsgi.py
+
+        project app/            advanced version used for splitting different environments
+            settings/           refactoring settings.py, deleve settings.py, create settings folder
+                __init__.py
+                base.py         create base.py and move everything in previous settings.py into base.py
+                develop.py      settings.py for development environment, from test_project.settings.base import *, then override specific part
+                product.py      settings.py for production environment, from test_project.settings.base import *, then override specific part
+            __init__.py
+            asgi.py
+            urls.py
+            wsgi.py             modify this file after refactored settings.py
+
+        app1/
+            ...
+
+        app2/
+            ...
+        
+        manage.py               modify this file if settings.py got refactored
+
+        * wsgi.py and manage.py modification for settings.py refactoration
+        * original:     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_project.settings')
+        * afterwards:   profile = os.environ.get('PROJECT_PROFILE', 'develop')
+        *               os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_project.settings.%s' %profile)
+
 """
