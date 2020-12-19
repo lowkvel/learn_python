@@ -148,9 +148,9 @@ project/                overall project folder, contains many none-code files an
                 develop.py      settings.py for development environment, from test_project.settings.base import *, then override specific part
                 product.py      settings.py for production environment, from test_project.settings.base import *, then override specific part
             __init__.py
-            asgi.py
+            asgi.py             modify this file if settings.py got refactored
             urls.py
-            wsgi.py             modify this file after refactored settings.py
+            wsgi.py             modify this file if settings.py got refactored
 
         app1/
             ...
@@ -160,7 +160,7 @@ project/                overall project folder, contains many none-code files an
         
         manage.py               modify this file if settings.py got refactored
 
-        * wsgi.py and manage.py modification for settings.py refactoration
+        * wsgi.py, asgi.py and manage.py modification for settings.py refactoration
         * original:     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_project.settings')
         * afterwards:   profile = os.environ.get('PROJECT_PROFILE', 'develop')
         *               os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_project.settings.%s' %profile)
