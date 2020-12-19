@@ -120,7 +120,7 @@ def get_absolute_url
 # general project structure
 """
 project/                overall project folder, contains many none-code files and folders
-    LICENCE             open source licences
+    LICENSE             open source licences
     MANIFEST.in         along with setup.py
     README.md           introduction to the project
     conf/               configuration files, such as nginx, supervisor, etc
