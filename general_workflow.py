@@ -145,8 +145,8 @@ project/                overall project folder, contains many none-code files an
             settings/           refactoring settings.py, deleve settings.py, create settings folder
                 __init__.py
                 base.py         create base.py and move everything in previous settings.py into base.py
-                develop.py      settings.py for development environment, from test_project.settings.base import *, then override specific part
-                product.py      settings.py for production environment, from test_project.settings.base import *, then override specific part
+                develop.py      settings.py for development environment, from .base import *, then override specific part
+                product.py      settings.py for production environment, from .base import *, then override specific part
             __init__.py
             asgi.py             modify this file if settings.py got refactored
             urls.py
@@ -160,5 +160,9 @@ project/                overall project folder, contains many none-code files an
         * original:     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_project.settings')
         * afterwards:   profile = os.environ.get('PROJECT_PROFILE', 'develop')
         *               os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_project.settings.%s' %profile)
+
+        * base.py modification
+        * LANGUAGE_CODE = 'zh_hans'
+        * TIME_ZONE = 'Asia/Shanghai'
 
 """
