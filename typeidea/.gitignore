@@ -1,4 +1,6 @@
 typeidea_venv/
 __pycache__/
+*.pyc
+*.swp
 *.sqlite3
 .DS_Store
