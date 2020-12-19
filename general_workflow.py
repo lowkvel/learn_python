@@ -134,13 +134,13 @@ project/                overall project folder, contains many none-code files an
         ...
 
     project(src)/       source code for project, "django-admin startproject new_project ."
+        manage.py               modify this file if settings.py got refactored
         project app/            normal version
             __init__.py
             asgi.py
             settings.py
             urls.py
             wsgi.py
-
         project app/            advanced version used for splitting different environments
             settings/           refactoring settings.py, deleve settings.py, create settings folder
                 __init__.py
@@ -151,15 +151,11 @@ project/                overall project folder, contains many none-code files an
             asgi.py             modify this file if settings.py got refactored
             urls.py
             wsgi.py             modify this file if settings.py got refactored
-
         app1/
             ...
-
         app2/
             ...
         
-        manage.py               modify this file if settings.py got refactored
-
         * wsgi.py, asgi.py and manage.py modification for settings.py refactoration
         * original:     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_project.settings')
         * afterwards:   profile = os.environ.get('PROJECT_PROFILE', 'develop')
