@@ -90,6 +90,11 @@ import the models from models.py we want to register into admin.py by using "fro
 register/manage the models from models.py through the admin site by using "admin.site.register(Model_name)" or use "@admin.register()"
 """
 
+# 6.1 forms for admin
+"""
+Use adminforms.py instead of normal forms.py
+"""
+
 # 7 make pages, 1 defining URLs, 2 writing views, 3 writing templates
 """
 defining URLs in urls.py from the project folder by using "path('', include('new_app.urls')),"
