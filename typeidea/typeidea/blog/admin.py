@@ -7,8 +7,15 @@ from .adminforms import PostAdminForm
 
 # Register your models here.
 
+class PostInline(admin.StackedInline):
+    fields = ('title', 'desc')
+    extra = 1       # controls how many extra lines to be shown
+    model = Post
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    #inlines = [PostInline, ]          # modify related material in the same page using xxxInline, class defined above
+
     list_display = ('name', 'status', 'owner', 'is_nav', 'post_count', 'created_time')    # for page display
     fields = ('name', 'status', 'is_nav')   # for modification
 
