@@ -54,7 +54,7 @@ class TagOwnerFilter(admin.SimpleListFilter):
     def lookups(self, request, model_admin):
         return Tag.objects.filter(owner=request.user).values_list('id', 'name')
 
-    def queryset(self,request, queryset):
+    def queryset(self, request, queryset):
         tag_id = self.value()
         if tag_id:
             return queryset.filter(tag_id=tag_id)

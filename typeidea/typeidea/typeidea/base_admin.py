@@ -2,8 +2,8 @@ from django.contrib import admin
 
 class BaseOwnerAdmin(admin.ModelAdmin):
     """
-    1. save_model():    automatically fill the field 'owner' using request.user in all models
-    2. get_queryset():  filter queryset to display only current user's data 
+    1. save_model(...):    automatically fill the field 'owner' using request.user in all models
+    2. get_queryset(...):  filter queryset to display only current user's data 
     """
 
     exclude = ('owner', )
@@ -15,4 +15,6 @@ class BaseOwnerAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         return super(BaseOwnerAdmin, self).get_queryset(request).filter(owner=request.user)
 
-    
+
+
+
