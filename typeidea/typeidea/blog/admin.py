@@ -46,7 +46,7 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    form = PostAdminForm
+    form = PostAdminForm        # used for admin forms
     
     list_display = ('title', 'category', 'status', 'owner', 'created_time', 'operator')
     list_display_links = None
