@@ -4,6 +4,7 @@ from django.utils.html import format_html
 
 from .models import Post, Category, Tag
 from .adminforms import PostAdminForm
+from typeidea.custom_admin_site import custom_admin_site
 
 # Register your models here.
 
@@ -12,7 +13,7 @@ class PostInline(admin.StackedInline):
     extra = 1       # controls how many extra lines to be shown
     model = Post
 
-@admin.register(Category)
+@admin.register(Category, site=custom_admin_site)
 class CategoryAdmin(admin.ModelAdmin):
     #inlines = [PostInline, ]          # modify related material in the same page using xxxInline, class defined above
 
@@ -42,7 +43,7 @@ class CategoryOwnerFilter(admin.SimpleListFilter):
             return queryset.filter(category_id=category_id)
         return queryset
 
-@admin.register(Tag)
+@admin.register(Tag, site=custom_admin_site)
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name', 'status', 'owner', 'created_time')
     fields = ('name', 'status')
@@ -51,7 +52,7 @@ class TagAdmin(admin.ModelAdmin):
         obj.owner = request.user
         return super(TagAdmin, self).save_model(request, obj, form, change)
 
-@admin.register(Post)
+@admin.register(Post, site=custom_admin_site)
 class PostAdmin(admin.ModelAdmin):
     form = PostAdminForm        # used for admin forms
     
@@ -83,7 +84,7 @@ class PostAdmin(admin.ModelAdmin):
     """
 
     def operator(self, obj):
-        return format_html('<a href="{}">编辑</a>', reverse('admin:blog_post_change', args=(obj.id,)))
+        return format_html('<a href="{}">编辑</a>', reverse('cus_admin:blog_post_change', args=(obj.id,)))
     operator.short_description = '操作'
 
     def save_model(self, request, obj, form, change):
