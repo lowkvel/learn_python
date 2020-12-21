@@ -99,7 +99,7 @@ class PostAdmin(BaseOwnerAdmin):
         return format_html('<a href="{}">编辑</a>', reverse('cus_admin:blog_post_change', args=(obj.id,)))
     operator.short_description = '操作'
 
-@admin.register(LogEntry, site=custom_admin_site)
+@admin.register(LogEntry)       # im not using "site=custom_admin_site", because it should be an super administration tool
 class LogEntryAdmin(admin.ModelAdmin):
     list_display = ['object_repr', 'object_id', 'action_flag', 'user', 'change_message']
 
