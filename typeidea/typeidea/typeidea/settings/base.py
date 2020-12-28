@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #'typeidea',    # uncomment this to use templates under typeidea app folder, not suggested
+
     'blog',
     'config',
     'comment',
