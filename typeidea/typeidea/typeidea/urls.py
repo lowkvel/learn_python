@@ -25,7 +25,7 @@ urlpatterns = [
     path('', post_list, name='front_page'),                                             #url(r'^$', post_list),
     path('category/<int:category_id>/', post_list, name='post_list_from_category_id'),  #url(r'^category/(?P<category_id>\d+)/$', post_list),
     path('tag/<int:tag_id>/', post_list, name='post_list_from_tag_id'),                 #url(r'^tag/(?P<tag_id>\d+)$', post_list),
-    path('post/<int:post_id>/', post_detail, name='post_detail_post_id'),               #url(r'^post/(?P<post_id>\d+).html&', post_detail),
+    path('post/<int:post_id>/', post_detail, name='post_detail_from_post_id'),          #url(r'^post/(?P<post_id>\d+).html&', post_detail),
     path('links/', links, name='links'),                                                #url(r'^links/$', links),
     
     path('super_admin/', admin.site.urls, name='super_admin'),                          # used for super admin
