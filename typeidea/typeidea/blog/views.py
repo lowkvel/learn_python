@@ -12,6 +12,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .models import Post, Tag, Category
+from config.models import SideBar
 
 # Create your views here.
 def post_list(request, category_id=None, tag_id=None):
@@ -25,10 +26,11 @@ def post_list(request, category_id=None, tag_id=None):
         post_list, category = Post.get_by_category(category_id)
     else:
         post_list = Post.latest_posts()
-    
+
     #context = 'post_list category_id={category_id}, tag_id={tag_id}'.format(category_id=category_id, tag_id=tag_id, )
     #return HttpResponse(context)
-    context = {'category': category, 'tag': tag, 'post_list': post_list}
+    context = {'category': category, 'tag': tag, 'post_list': post_list, 'sidebars': SideBar.get_all()}
+    context.update(Category.get_navs())
     return render(request, 'blog/list.html', context=context)
 
 def post_detail(request, post_id):
@@ -39,7 +41,9 @@ def post_detail(request, post_id):
         post_detail = None
     
     #return HttpResponse('detail')
-    return render(request, 'blog/detail.html', context={'post_detail': post_detail})
+    context = {'post_detail': post_detail, 'sidebars': SideBar.get_all()}
+    context.update(Category.get_navs())
+    return render(request, 'blog/detail.html', context=context)
 
 
 

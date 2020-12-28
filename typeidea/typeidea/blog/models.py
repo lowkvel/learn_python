@@ -20,6 +20,26 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def get_navs(cls):
+        categories = cls.objects.filter(status=cls.STATUS_NORMAL)
+        categories_nav = categories.filter(is_nav=True)
+        categories_normal = categories.filter(is_nav=False)
+
+        """
+        # advanced version - I/O reduced from 2 to 1
+        categories = cls.objects.filter(status=cls.STATUS_NORMAL)
+        categories_nav = []
+        categories_normal = []
+        for category_item in categories:
+            if category_item.is_nav:
+                categories_nav.append(category_item)
+            else:
+                categories_normal.append(category_item)
+        """
+
+        return {'categories_nav': categories_nav, 'categories_normal': categories_normal}
+
 class Tag(models.Model):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0

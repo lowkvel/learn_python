@@ -16,5 +16,12 @@
         <hr/>
         <P>{{ post_detail.content }}</p>
     {% endif %}
+
+    <div>
+        {% for sidebar_item in sidebars %}
+            <h4>{{ sidebar_item.title }}</h4>
+            {{ sidebar_item.content }}
+        {% endfor %}
+    </div>
 </body>
 </html>
