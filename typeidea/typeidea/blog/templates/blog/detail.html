@@ -1,11 +1,8 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>typeidea 博客系统</title>
-</head>
+{% extends "./base.html" %}
 
-<body>
+{% block title %} {{ post_detail.title }} {% endblock title %}
+
+{% block main %}
     {% if post_detail %}
         <h1>{{ post_detail.title }}</h1>
         <div>
@@ -13,15 +10,6 @@
             <span>分类：{{ post_detail.category.name }}</span>
             <span>标签：{{ post_detail.tag.name }}</span>
         </div>
-        <hr/>
         <P>{{ post_detail.content }}</p>
     {% endif %}
-
-    <div>
-        {% for sidebar_item in sidebars %}
-            <h4>{{ sidebar_item.title }}</h4>
-            {{ sidebar_item.content }}
-        {% endfor %}
-    </div>
-</body>
-</html>
+{% endblock main %}
