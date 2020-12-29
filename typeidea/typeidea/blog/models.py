@@ -71,6 +71,9 @@ class Post(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="作者")
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
+    pv = models.PositiveIntegerField(default=1)
+    uv = models.PositiveIntegerField(default=1)
+
     class Meta:
         verbose_name = verbose_name_plural = "文章"
         ordering = ['-id']      # ordering dsec by id
@@ -102,5 +105,8 @@ class Post(models.Model):
 
     @classmethod
     def latest_posts(cls):
-        queryset = cls.objects.filter(status=cls.STATUS_NORMAL)
-        return queryset
+        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-created_time')
+
+    @classmethod
+    def hot_posts(cls):
+        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv')
