@@ -22,7 +22,7 @@ from config.views import links
 from .custom_admin_site import custom_admin_site
 
 urlpatterns = [
-    path('', post_list, name='front_page'),                                             #url(r'^$', post_list),
+    path('', post_list, name='main_page'),                                              #url(r'^$', post_list),
     path('category/<int:category_id>/', post_list, name='post_list_from_category_id'),  #url(r'^category/(?P<category_id>\d+)/$', post_list),
     path('tag/<int:tag_id>/', post_list, name='post_list_from_tag_id'),                 #url(r'^tag/(?P<tag_id>\d+)$', post_list),
     path('post/<int:post_id>/', post_detail, name='post_detail_from_post_id'),          #url(r'^post/(?P<post_id>\d+).html&', post_detail),

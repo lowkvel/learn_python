@@ -8,7 +8,7 @@
 <body>
     <div>顶部分类：
         {% for category_item in categories_nav %}
-            <a href="/category/{{ category_item.id }}/">{{ category_item.name }}</a>
+            <a href="{% url 'post_list_from_category_id' category_item.id %}">{{ category_item.name }}</a>
         {% endfor %}
     </div>
     <hr/>
@@ -20,7 +20,7 @@
     <hr/>
     <div>底部分类：
         {% for category_item in categories_nav %}
-            <a href="/category/{{ category_item.id }}/">{{ category_item.name }}</a>
+            <a href="{% url 'post_list_from_category_id' category_item.id %}">{{ category_item.name }}</a>
         {% endfor %}
     </div>
 
