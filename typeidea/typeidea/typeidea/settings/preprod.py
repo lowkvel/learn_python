@@ -10,5 +10,3 @@ DATABASES = {
     }
 }
 
-THEME = 'bootstrap'
-
