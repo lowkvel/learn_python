@@ -10,11 +10,13 @@ using:          decode engine, default is django template
 """
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic import DetailView, ListView
 
 from .models import Post, Tag, Category
 from config.models import SideBar
 
 # Create your views here.
+"""
 def post_list(request, category_id=None, tag_id=None):
 
     tag = None
@@ -32,7 +34,9 @@ def post_list(request, category_id=None, tag_id=None):
     context = {'category': category, 'tag': tag, 'post_list': post_list, 'sidebars': SideBar.get_all()}
     context.update(Category.get_navs())
     return render(request, 'blog/list.html', context=context)
+"""
 
+"""
 def post_detail(request, post_id):
 
     try:
@@ -44,7 +48,15 @@ def post_detail(request, post_id):
     context = {'post_detail': post_detail, 'sidebars': SideBar.get_all()}
     context.update(Category.get_navs())
     return render(request, 'blog/detail.html', context=context)
+"""
 
-
-
+class PostListView(ListView):
+    queryset = Post.latest_posts()
+    paginate_by = 5
+    context_object_name = 'post_list'
+    template_name = 'blog/list_cbv.html'
+class PostDetailView(DetailView):
+    model = Post
+    context_object_name = 'post_detail'
+    template_name = 'blog/detail_cbv.html'
 
