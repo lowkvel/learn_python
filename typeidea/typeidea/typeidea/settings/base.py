@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles',   # valid in dev env only, use nginx or cdn in prod env along with STATIC_ROOT.
 ]
 
 MIDDLEWARE = [
@@ -129,4 +129,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/'     # ie: /static/css/base.css
+
+STATIC_ROOT = '/tmp/static'     # useless in dev env, valid in prod env with nginx or cdn
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'themes', THEME, 'static'),
+]
