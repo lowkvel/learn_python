@@ -58,7 +58,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'typeidea.urls'
 
-THEME = 'default'
+#THEME = 'default'
+THEME = 'bootstrap'
 
 TEMPLATES = [
     {

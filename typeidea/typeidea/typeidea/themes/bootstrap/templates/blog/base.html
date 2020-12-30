@@ -1,34 +1,72 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>{% block title %}{% endblock title %} - typeidea 博客系统</title>
+    <title>{% block title %}首页{% endblock title %} - typeidea 博客系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css">
+
 </head>
 
 <body>
-    <div>顶部分类：
-        {% for category_item in categories_nav %}
-            <a href="{% url 'post_list_from_category_id_cbv' category_item.id %}">{{ category_item.name }}</a>
-        {% endfor %}
+    <div class="container head">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">首页</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% for category_item in categories_nav %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'post_list_from_category_id_cbv' category_item.id %}">{{ category_item.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action='GET'>
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">搜索</button>
+                </form>
+            </div>
+        </nav>
+        <div class="jumbotron">
+            <h1 class="display-4">Typeidea</h1>
+            <p class="lead">基于Django的多人博客系统</p>
+        </div>
     </div>
-    <hr/>
 
-    {% block main %}
-
-    {% endblock main %}
-
-    <hr/>
-    <div>底部分类：
-        {% for category_item in categories_nav %}
-            <a href="{% url 'post_list_from_category_id_cbv' category_item.id %}">{{ category_item.name }}</a>
-        {% endfor %}
+    <div class="container main">
+        <div class="row">
+            <div class="col-9 post-list">
+                {% block main %}
+                {% endblock main %}
+            </div>
+            <div class="col-3">
+                {% block sidebar %}
+                    {% for sidebar_item in sidebars %}
+                        <div class="card sidebar">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ sidebar_item.title }}</h4>
+                                <p>{{ sidebar_item.content_html }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endblock sidebar %}
+            </div>
+        </div>
     </div>
 
-    <div>
-        {% for sidebar_item in sidebars %}
-            <h4>{{ sidebar_item.title }}</h4>
-            {{ sidebar_item.content_html }}
-        {% endfor %}
-    </div>
+    <footer class="footer">
+        {% block footer %}
+            <div class="container">
+                <hr/>
+                <nav class="nav category">
+                    {% for category_item in categories_nav %}
+                        <a class="nav-link" href="{% url 'post_list_from_category_id_cbv' category_item.id %}">{{ category_item.name }}</a>
+                    {% endfor %}
+                </nav>
+            </div>
+            <div class="container power">
+                <span class="text-muted">Power by Typeidea@2333</span>
+            </div>
+        {% endblock footer%}
+    </footer>
 </body>
 </html>
