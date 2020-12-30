@@ -18,30 +18,32 @@ from django.urls import path
 from django.conf.urls import url
 
 #from blog.views import post_list, post_detail
-from blog.views import PostDetailView, PostListView
+from blog.views import IndexView, CategoryView, TagView, PostDetailView
 
 from config.views import links
 from .custom_admin_site import custom_admin_site
 
 urlpatterns = [
+    
     #url(r'^$', post_list),
-    #path('', post_list, name='main_page'),                                              
-    path('', PostListView.as_view(), name='main_page_cbv'),
+    #path('', post_list, name='index'), 
+    path('', IndexView.as_view(), name='index_cbv'),
 
     #url(r'^category/(?P<category_id>\d+)/$', post_list),
     #path('category/<int:category_id>/', post_list, name='post_list_from_category_id'),  
-    path('tag/<int:category_id>/', PostListView.as_view(), name='post_list_from_category_id_cbv'),
+    path('category/<int:category_id>/', CategoryView.as_view(), name='post_list_from_category_id_cbv'),
 
     #url(r'^tag/(?P<tag_id>\d+)$', post_list),
     #path('tag/<int:tag_id>/', post_list, name='post_list_from_tag_id'),
-    path('tag/<int:tag_id>/', PostListView.as_view(), name='post_list_from_tag_id_cbv'),
+    path('tag/<int:tag_id>/', TagView.as_view(), name='post_list_from_tag_id_cbv'),
     
     #url(r'^post/(?P<post_id>\d+).html&', post_detail),
     #path('post/<int:post_id>/', post_detail, name='post_detail_from_post_id'),          
-    path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail_from_post_id_cbv'),
+    path('post/<int:post_id>/', PostDetailView.as_view(), name='post_detail_from_post_id_cbv'),
     
-    path('links/', links, name='links'),                                                #url(r'^links/$', links),
+    #url(r'^links/$', links),
+    path('links/', links, name='links'),                                                
     
-    path('super_admin/', admin.site.urls, name='super_admin'),                          # used for super admin
-    path('admin/', custom_admin_site.urls, name='normal_admin'),                        # used for normal admin
+    path('super_admin/', admin.site.urls, name='super_admin'),      # used for super admin
+    path('admin/', custom_admin_site.urls, name='normal_admin'),    # used for normal admin
 ]
