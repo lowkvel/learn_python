@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #'typeidea',    # uncomment this to use templates under typeidea app folder, not suggested
+    'typeidea',    # uncomment this to use templates under typeidea app folder, not suggested
 
     'blog',
     'config',
@@ -57,10 +58,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'typeidea.urls'
 
+THEME = 'default'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'themes', THEME, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
