@@ -11,6 +11,7 @@ using:          decode engine, default is django template
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import DetailView, ListView
+from django.db.models import Q
 
 from .models import Post, Tag, Category
 from config.models import SideBar
@@ -103,3 +104,18 @@ class PostListView(ListView):
     context_object_name = 'post_list'
     template_name = 'blog/list_cbv.html'
 """
+
+class SearchView(IndexView):
+    def get_context_data(self):
+        context = super().get_context_data()
+        context.update({'keyword': self.request.GET.get('keyword', '')})
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        keyword = self.request.GET.get('keyword')
+        if not keyword:
+            return queryset
+        return queryset.filter(Q(title__icontains=keyword) | Q(desc__icontains=keyword))
+
+        
