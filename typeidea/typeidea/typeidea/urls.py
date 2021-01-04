@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf.urls import url
 
 #from blog.views import post_list, post_detail
-from blog.views import IndexView, CategoryView, TagView, PostDetailView, SearchView
+from blog.views import IndexView, CategoryView, TagView, PostDetailView, SearchView, AuthorView
 
 from config.views import links
 from .custom_admin_site import custom_admin_site
@@ -41,7 +41,9 @@ urlpatterns = [
     #path('post/<int:post_id>/', post_detail, name='post_detail_from_post_id'),          
     path('post/<int:post_id>/', PostDetailView.as_view(), name='post_detail_from_post_id_cbv'),
 
-    path('search/', SearchView.as_view(), name='search'),
+    path('search/', SearchView.as_view(), name='search_results'),
+
+    path('/author/<int:owner_id>/', AuthorView.as_view(), name='post_list_from_author_id_cbv'),
     
     #url(r'^links/$', links),
     path('links/', links, name='links'),                                                

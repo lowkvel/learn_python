@@ -15,7 +15,7 @@
         <div class="card post">
             <div class="card-body">
                 <h5 class="card-title"><a href="{% url 'post_detail_from_post_id_cbv' post.id %}">{{ post.title }}</a></h5>
-                <span class="card-link">作者：<a href="#">{{ post.owner.username }}</a></span>
+                <span class="card-link">作者：<a href="{% url 'post_list_from_author_id_cbv' post.owner.id %}">{{ post.owner.username }}</a></span>
                 <span class="card-link">分类：<a href="{% url 'post_list_from_category_id_cbv' post.category.id %}">{{ post.category.name }}</a></span>
                 <span class="card-link">标签：<a href="{% url 'post_list_from_tag_id_cbv' post.tag.id %}">{{ post.tag.name }}</a></span>
                 <span class="card-link">标签（循环取得，暂时失败）：
