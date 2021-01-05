@@ -19,8 +19,8 @@ from django.conf.urls import url
 
 #from blog.views import post_list, post_detail
 from blog.views import IndexView, CategoryView, TagView, PostDetailView, SearchView, AuthorView
-
-from config.views import links
+from config.views import LinkListView
+from comment.views import CommentView
 from .custom_admin_site import custom_admin_site
 
 urlpatterns = [
@@ -43,10 +43,13 @@ urlpatterns = [
 
     path('search/', SearchView.as_view(), name='search_results'),
 
-    path('/author/<int:owner_id>/', AuthorView.as_view(), name='post_list_from_author_id_cbv'),
+    path('author/<int:owner_id>/', AuthorView.as_view(), name='post_list_from_author_id_cbv'),
     
     #url(r'^links/$', links),
-    path('links/', links, name='links'),                                                
+    #path('links/', links, name='links'),
+    path('links/', LinkListView.as_view(), name='links'),
+
+    path('comment/', CommentView.as_view(), name='comment'),
     
     path('super_admin/', admin.site.urls, name='super_admin'),      # used for super admin
     path('admin/', custom_admin_site.urls, name='normal_admin'),    # used for normal admin
