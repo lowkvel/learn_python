@@ -16,7 +16,7 @@ class Comment(models.Model):
     website = models.URLField(verbose_name="网站")
     email = models.EmailField(verbose_name="邮箱")
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, verbose_name="作者")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name="作者")
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
