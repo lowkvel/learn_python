@@ -12,6 +12,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import DetailView, ListView
 from django.db.models import Q, F
+from datetime import date
+from django.core.cache import cache
 
 from .models import Post, Tag, Category
 from config.models import SideBar
@@ -110,6 +112,33 @@ class PostDetailView(CommonViewMixin, DetailView):
 
         return response
     """
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        self.handle_visited()
+        return response
+
+    def handle_visited(self):
+        increase_pv = False
+        increase_uv = False
+
+        uid = self.request.uid
+        pv_key = 'pv:%s:%s' % (uid, self.request.path)
+        uv_key = 'uv:%s:%s:%s' % (uid, str(date.today()), self.request.path)
+
+        if not cache.get(pv_key):
+            increase_pv = True
+            cache.set(pv_key, 1, 1*60)      # cache valid for 1 min
+        if not cache.get(uv_key):
+            increase_uv = True
+            cache.set(uv_key, 1, 24*60*60)  # cache valid for 1 hour
+
+        if increase_pv and increase_uv:
+            Post.objects.filter(pk=self.object.id).update(pv=F('pv')+1, uv=F('uv')+1)
+        elif increase_pv:
+            Post.objects.filter(pk=self.object.id).update(pv=F('pv')+1)
+        elif increase_uv:
+            Post.objects.filter(pk=self.object.id).update(uv=F('uv')+1)
 
     """
     # replaced by comment_block, a customed template block
