@@ -27,6 +27,7 @@
                 </span>
                 <p class="card-text">描述：{{ post_detail.desc }}</p>
                 <p class="card-text">内容：{{ post_detail.content }}</p>
+                <p class="card-text">内容：{% autoescape off %}{{ post_detail.content_html }}{% endautoescape %}</p>
             </div>
         </div>
     {% endif %}
