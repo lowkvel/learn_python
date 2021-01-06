@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
+from django.contrib.sitemaps import views as sitemap_views
 
 #from blog.views import post_list, post_detail
 from blog.views import IndexView, CategoryView, TagView, PostDetailView, SearchView, AuthorView
+from blog.rss import LatestPostFeed
+from blog.sitemap import PostSitemap
 from config.views import LinkListView
 from comment.views import CommentView
 from .custom_admin_site import custom_admin_site
@@ -50,6 +53,9 @@ urlpatterns = [
     path('links/', LinkListView.as_view(), name='links'),
 
     path('comment/', CommentView.as_view(), name='comment'),
+
+    path('rss/', LatestPostFeed(), name='rss'),
+    path('sitemap.xml', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}), 
     
     path('super_admin/', admin.site.urls, name='super_admin'),      # used for super admin
     path('admin/', custom_admin_site.urls, name='normal_admin'),    # used for normal admin

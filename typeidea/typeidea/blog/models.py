@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 
 import mistune
 
@@ -118,3 +119,14 @@ class Post(models.Model):
     @classmethod
     def hot_posts(cls):
         return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv')
+
+    @cached_property
+    def tags(self):
+        temp = self.tag
+        tempname = self.tag.name
+
+        #return ','.join(self.tag.values_list('name', flat=True))   # should use this one but cannot fix buges
+        return self.tag.name
+
+
+
