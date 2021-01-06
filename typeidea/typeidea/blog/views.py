@@ -98,10 +98,14 @@ class PostDetailView(CommonViewMixin, DetailView):
     template_name = 'blog/detail_cbv.html'
     pk_url_kwarg = 'post_id'
 
+    """
+    # replaced by comment_block, a customed template block
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({'comment_form': CommentForm, 'comment_list': Comment.get_by_target(self.request.path), })
         return context
+    """
+    
 
 """
 # replaced by index, category, tag views
