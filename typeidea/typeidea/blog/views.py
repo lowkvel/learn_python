@@ -11,7 +11,7 @@ using:          decode engine, default is django template
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import DetailView, ListView
-from django.db.models import Q
+from django.db.models import Q, F
 
 from .models import Post, Tag, Category
 from config.models import SideBar
@@ -97,6 +97,19 @@ class PostDetailView(CommonViewMixin, DetailView):
     context_object_name = 'post_detail'
     template_name = 'blog/detail_cbv.html'
     pk_url_kwarg = 'post_id'
+
+    """
+    # pv/uv update, i/o expensive, every view request will cause a database i/o.
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        Post.objects.filter(pk=self.object.id).update(pv=F('pv')+1, uv=F('uv')+1)
+
+        # test
+        #from django.db import connection
+        #print(connection.queries)
+
+        return response
+    """
 
     """
     # replaced by comment_block, a customed template block
