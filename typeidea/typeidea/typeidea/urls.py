@@ -26,6 +26,8 @@ from config.views import LinkListView
 from comment.views import CommentView
 from .custom_admin_site import custom_admin_site
 
+from blog.apis import post_list, PostList
+
 urlpatterns = [
     
     #url(r'^$', post_list),
@@ -39,6 +41,9 @@ urlpatterns = [
     #url(r'^tag/(?P<tag_id>\d+)$', post_list),
     #path('tag/<int:tag_id>/', post_list, name='post_list_from_tag_id'),
     path('tag/<int:tag_id>/', TagView.as_view(), name='post_list_from_tag_id_cbv'),
+
+    path('api/post/', post_list, name='post-list'),
+    #path('api/post/', PostList.as_view(), name='post-list'),
     
     #url(r'^post/(?P<post_id>\d+).html&', post_detail),
     #path('post/<int:post_id>/', post_detail, name='post_detail_from_post_id'),          
