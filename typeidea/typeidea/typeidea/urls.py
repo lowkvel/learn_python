@@ -30,11 +30,12 @@ from comment.views import CommentView
 from .custom_admin_site import custom_admin_site
 
 #from blog.apis import post_list, PostList
-from blog.apis import PostViewSet
+from blog.apis import PostViewSet, CategoryViewSet
 from blog.apps import BlogConfig
 
 router = DefaultRouter()
 router.register('post', PostViewSet, basename='api-post')
+router.register('category', CategoryViewSet, basename='api-category')
 
 urlpatterns = [
     
@@ -45,6 +46,7 @@ urlpatterns = [
     #url(r'^category/(?P<category_id>\d+)/$', post_list),
     #path('category/<int:category_id>/', post_list, name='post_list_from_category_id'),  
     path('category/<int:category_id>/', CategoryView.as_view(), name='post_list_from_category_id_cbv'),
+    #path(),
 
     #url(r'^tag/(?P<tag_id>\d+)$', post_list),
     #path('tag/<int:tag_id>/', post_list, name='post_list_from_tag_id'),
