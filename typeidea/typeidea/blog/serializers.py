@@ -20,10 +20,12 @@ class PostDetailSerializer(PostSerializer):
         model = Post
         fields = ['url', 'id', 'title', 'category', 'tag', 'owner', 'content_html', 'created_time']
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+
+    url = serializers.HyperlinkedIdentityField(view_name=BlogConfig.name+':api-category-detail')
     class Meta:
         model = Category
-        fields = ('id', 'name', 'created_time')
+        fields = ('url', 'id', 'name', 'created_time')
 
 class CategoryDetailSerializer(CategorySerializer):
     posts = serializers.SerializerMethodField('paginated_posts')
@@ -37,5 +39,5 @@ class CategoryDetailSerializer(CategorySerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'name', 'created_time', 'posts')
+        fields = ('url', 'id', 'name', 'created_time', 'posts')
         
