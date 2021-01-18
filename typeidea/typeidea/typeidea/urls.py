@@ -46,7 +46,6 @@ urlpatterns = [
     #url(r'^category/(?P<category_id>\d+)/$', post_list),
     #path('category/<int:category_id>/', post_list, name='post_list_from_category_id'),  
     path('category/<int:category_id>/', CategoryView.as_view(), name='post_list_from_category_id_cbv'),
-    #path(),
 
     #url(r'^tag/(?P<tag_id>\d+)$', post_list),
     #path('tag/<int:tag_id>/', post_list, name='post_list_from_tag_id'),
