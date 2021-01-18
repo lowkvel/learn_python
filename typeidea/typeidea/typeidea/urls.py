@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from django.contrib.sitemaps import views as sitemap_views
+from django.views.decorators.cache import cache_page
 
 from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
@@ -73,7 +74,9 @@ urlpatterns = [
     path('comment/', CommentView.as_view(), name='comment'),
 
     path('rss/', LatestPostFeed(), name='rss'),
-    path('sitemap.xml', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}), 
+    
+    #path('sitemap.xml', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}), 
+    path('sitemap.xml', cache_page(60*1, key_prefix='sitemap_cache_')(sitemap_views.sitemap), {'sitemaps':{'posts': PostSitemap}}),
     
     path('super_admin/', admin.site.urls, name='super_admin'),      # used for super admin
     path('admin/', custom_admin_site.urls, name='normal_admin'),    # used for normal admin

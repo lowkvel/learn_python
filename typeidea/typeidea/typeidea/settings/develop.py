@@ -3,6 +3,8 @@ from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+"""
+# mysql configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -15,6 +17,7 @@ DATABASES = {
         #'OPTIONS': {'charset': 'utf8mb4'}
     }
 }
+"""
 
 THEME = 'bootstrap'
 
