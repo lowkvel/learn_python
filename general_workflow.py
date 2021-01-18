@@ -112,6 +112,14 @@ Post.objects.order_by('-title')                                             # or
 post = Post.objects.get(id=1), then post.delete()                           # delete objects
 """
 
+# MySql
+"""
+pip install pymysql
+in the project level (settings.py level) __init__.py, use the following code:
+import pymysql
+pymysql.install_as_MySQLdb()    # tell django using pymysql instead of mysqldb to connect mysql database
+"""
+
 # some common methods in models
 """
 fields
