@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.functional import cached_property
+from django.core.cache import cache
 
 import mistune
 
@@ -118,7 +119,11 @@ class Post(models.Model):
 
     @classmethod
     def hot_posts(cls):
-        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv')
+        result = cache.get('hot_posts')
+        if not result:
+            result = cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv')
+            cache.set('hot_posts', result, 1*60)
+        return result
 
     @cached_property
     def tags(self):
