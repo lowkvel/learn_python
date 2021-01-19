@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'y97ho3-s4=bkv-8op5o)e^oyo5l_cd1uk%rt706h0m1t=6gtz#'
+SECRET_KEY = '+*(xuhxyjzx5*%mgig6tlac-pl)z%ipi(3)v8*=(d)d+%3!fc9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework', 
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -121,9 +121,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
-# REST Framework
+# django rest framework
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10, 
+    'PAGE_SIZE': 10
 }
