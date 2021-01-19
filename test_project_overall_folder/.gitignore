@@ -1,4 +1,6 @@
-test_project_venv/
+env/
 __pycache__/
+*.pyc
+*.swp
 *.sqlite3
 .DS_Store
