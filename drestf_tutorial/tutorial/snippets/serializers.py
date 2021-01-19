@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 
+"""
 # SnippetSerializer, Serializer, django Form style declaration, v1
 class SnippetSerializer(serializers.Serializer):
     id = serializers.IntergerField(read_only=True)
@@ -23,3 +24,10 @@ class SnippetSerializer(serializers.Serializer):
         instance.style = validated_data.get('style', instance.style)
         instance.save()
         return instance
+"""
+
+# SnippetSerializer, ModelSerializer, django ModelForm style declaration, v2
+class SnippetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Snippet
+        fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
