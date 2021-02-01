@@ -1,11 +1,12 @@
 #from django.http import HttpResponse, JsonResponse
 #from django.views.decorators.csrf import csrf_exempt
 #from rest_framework.parsers import JSONParser
-from rest_framework import status
+from rest_framework import status, mixins, generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
+
 from snippets.models import Snippet
 from snippets.serializers import SnippetSerializer
 
@@ -42,7 +43,8 @@ def snippet_list(request, format=None):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 """
 
-# snippet_list, dresf classed based views, v3
+"""
+# snippet_list, drestf classed based views, v3
 class SnippetList(APIView):
     def get(self, request, format=None):                        # list all code snippets
         snippets = Snippet.objects.all()
@@ -55,6 +57,19 @@ class SnippetList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+"""
+
+# snippet_list, drestf classed based mixins views, v4
+class SnippetList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
 
 """
 # snippet_detail, regular django views, v1
@@ -103,6 +118,7 @@ def snippet_detail(request, pk, format=None):
         return Response(status=status.HTTP_204_NO_CONTENT)
 """
 
+"""
 # snippet_detail, drestf class based views, v3
 class SnippetDetail(APIView):
     def get_object(self, pk):
@@ -128,3 +144,19 @@ class SnippetDetail(APIView):
         snippet = self.get_object(pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+"""
+
+# snippet_detail, drestf class based mixins views, v4
+class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+        
