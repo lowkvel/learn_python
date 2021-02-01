@@ -1,14 +1,16 @@
 #from django.http import HttpResponse, JsonResponse
 #from django.views.decorators.csrf import csrf_exempt
 #from rest_framework.parsers import JSONParser
-from rest_framework import status, mixins, generics
+from rest_framework import status, mixins, generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from django.http import Http404
+from django.contrib.auth.models import User
 
 from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer
+from snippets.serializers import SnippetSerializer, UserSerializer
 
 """
 # snippet_list, regular django views, v1
@@ -76,6 +78,13 @@ class SnippetList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Gener
 class SnippetList(generics.ListCreateAPIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    # associating snippets with users by overriding a .perform_create() method of the create() method
+    # The create() method of our serializer will now be passed an additional 'owner' field, along with the validated data from the request.
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 """
 # snippet_detail, regular django views, v1
@@ -172,3 +181,13 @@ class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.D
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

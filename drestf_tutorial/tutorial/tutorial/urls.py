@@ -29,5 +29,9 @@ urlpatterns = [
     #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # tutorial urls
-    path('', include('snippets.urls'))
+    path('', include('snippets.urls')),
+]
+
+urlpatterns += [
+    path('api-auth/', include('rest_framework.urls')),
 ]

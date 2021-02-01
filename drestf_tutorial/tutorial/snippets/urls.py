@@ -10,6 +10,9 @@ urlpatterns = [
     #path('snippets/<int:pk>/', views.snippet_detail),            # used with snippet_detail views v1 and v2
     path('snippets/<int:pk>/', views.SnippetDetail.as_view()),    # used with snippet_detail views v3 and v4/5
 
+    path('users/', views.UserList.as_view()),               # used with user_list
+    path('users/<int:pk>/', views.UserDetail.as_view()),    # used with user_detail
+
 ]
 
 # drestf url suffix patterns support, add 'format=None' in views in views.py
