@@ -59,6 +59,7 @@ class SnippetList(APIView):
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 """
 
+"""
 # snippet_list, drestf classed based mixins views, v4
 class SnippetList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Snippet.objects.all()
@@ -69,7 +70,12 @@ class SnippetList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Gener
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+"""
 
+# snippet_list, drestf classed based mixins simplified views, v5
+class SnippetList(generics.ListCreateAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
 
 """
 # snippet_detail, regular django views, v1
@@ -146,6 +152,7 @@ class SnippetDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 """
 
+"""
 # snippet_detail, drestf class based mixins views, v4
 class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
     queryset = Snippet.objects.all()
@@ -159,4 +166,9 @@ class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.D
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
-        
+"""
+
+# snippet_detail, drestf class based mixins simplified views, v5
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
