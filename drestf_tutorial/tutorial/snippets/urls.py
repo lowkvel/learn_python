@@ -4,14 +4,18 @@ from snippets import views
 
 urlpatterns = [
 
-    #path('snippets/', views.snippet_list),             # used with snippet_list views v1 and v2
-    path('snippets/', views.SnippetList.as_view()),     # used with snippet_list views v3 and v4/5
+    path('', views.api_root),       # api-root for snippet app
 
-    #path('snippets/<int:pk>/', views.snippet_detail),            # used with snippet_detail views v1 and v2
-    path('snippets/<int:pk>/', views.SnippetDetail.as_view()),    # used with snippet_detail views v3 and v4/5
+    #path('snippets/', views.snippet_list, name='snippet-list'),             # used with snippet_list views v1 and v2
+    path('snippets/', views.SnippetList.as_view(), name='snippet-list'),     # used with snippet_list views v3 and v4/5
 
-    path('users/', views.UserList.as_view()),               # used with user_list
-    path('users/<int:pk>/', views.UserDetail.as_view()),    # used with user_detail
+    #path('snippets/<int:pk>/', views.snippet_detail, name='snippet-detail'),           # used with snippet_detail views v1 and v2
+    path('snippets/<int:pk>/', views.SnippetDetail.as_view(), name='snippet-detail'),   # used with snippet_detail views v3 and v4/5
+
+    path('snippets/<int:pk>/highlight/', views.SnippetHighlight.as_view(), name='snippet-highlight'), 
+
+    path('users/', views.UserList.as_view(), name='user-list'),                 # used with user_list
+    path('users/<int:pk>/', views.UserDetail.as_view(), name='user-detail'),    # used with user_detail
 
 ]
 

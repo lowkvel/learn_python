@@ -29,6 +29,7 @@ class SnippetSerializer(serializers.Serializer):
         return instance
 """
 
+"""
 # SnippetSerializer, ModelSerializer, django ModelForm style declaration, v2
 class SnippetSerializer(serializers.ModelSerializer):
 
@@ -39,7 +40,19 @@ class SnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Snippet
         fields = ['id', 'title', 'code', 'linenos', 'language', 'style', 'owner']
+"""
 
+# SnippetSerializer, HyperlinkedModelSerializer, django ModelForm style declaration with hyperlinked field, v3
+class SnippetSerializer(serializers.HyperlinkedModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
+
+    class Meta:
+        model = Snippet
+        fields = ['url', 'highlight', 'id', 'title', 'code', 'linenos', 'language', 'style', 'owner']
+
+"""
+# UserSerializer, ModelSerializer, django ModelForm style declaration, v1
 class UserSerializer(serializers.ModelSerializer):
 
     #Because 'snippets' is a reverse relationship on the User model, 
@@ -50,6 +63,15 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'snippets']
+"""
+
+# UserSerializer, HyperlinkedModelSerializer, django ModelForm style declaration with hyperlinked field, v2
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    snippets = serializers.HyperlinkedRelatedField(many=True, view_name='snippet-detail', read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['url', 'id', 'username', 'snippets']
 
 
 
