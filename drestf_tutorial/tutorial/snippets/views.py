@@ -1,8 +1,8 @@
 #from django.http import HttpResponse, JsonResponse
 #from django.views.decorators.csrf import csrf_exempt
 #from rest_framework.parsers import JSONParser
-from rest_framework import status, mixins, generics, permissions, renderers
-from rest_framework.decorators import api_view
+from rest_framework import status, mixins, generics, permissions, renderers, viewsets
+from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
@@ -84,6 +84,7 @@ class SnippetList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Gener
         return self.create(request, *args, **kwargs)
 """
 
+"""
 # snippet_list, drestf classed based mixins simplified views, v5
 class SnippetList(generics.ListCreateAPIView):
     queryset = Snippet.objects.all()
@@ -95,6 +96,7 @@ class SnippetList(generics.ListCreateAPIView):
     # The create() method of our serializer will now be passed an additional 'owner' field, along with the validated data from the request.
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+"""
 
 """
 # snippet_detail, regular django views, v1
@@ -187,6 +189,7 @@ class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.D
         return self.destroy(request, *args, **kwargs)
 """
 
+"""
 # snippet_detail, drestf class based mixins simplified views, v5
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Snippet.objects.all()
@@ -194,7 +197,7 @@ class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
-# snippet_highlight, dresf classed based mixins views 
+# snippet_highlight, drestf class based mixins views, v1
 class SnippetHighlight(generics.GenericAPIView):
     queryset = Snippet.objects.all()
     renderer_classes = [renderers.StaticHTMLRenderer]
@@ -202,11 +205,37 @@ class SnippetHighlight(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         snippet = self.get_object()
         return Response(snippet.highlighted)
+"""
 
+# snippet_list, snippet_detail and snippet_highlight, drestf class based views using viewset, v6
+class SnippetViewSet(viewsets.ModelViewSet):
+    # this viewset automatically provides 'list', 'create', 'retrieve', 'update' and 'destroy' actions
+    # additionally, we need to provide an extra 'highlight' action
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    def highlight(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+"""
+# user_list, drestf class based generics views, v1
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+"""
+
+# user_list and user_detail, drestf class based generics views using viewsets, v2
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    # this viewset automatically provides 'list' and 'retrieve' actions
     queryset = User.objects.all()
     serializer_class = UserSerializer
