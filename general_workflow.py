@@ -130,6 +130,13 @@ def save
 def get_absolute_url
 """
 
+# some common approaches in views
+"""
+Use viewsets.ModelViewSet router when you are going to allow all or most of CRUD operations on a model.
+Use generics.* subclasses when you only want to allow some operations on a model
+Use APIView subclasses when you want to completely customize the behaviour.
+"""
+
 # general project structure
 """
 project/                overall project folder, contains many none-code files and folders
