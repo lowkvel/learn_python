@@ -9,7 +9,7 @@ this is the overall project folder, will contain many none-src files, such as ve
 
 # 1 create and use a new venv for a new project
 """
-Run the command "python -m venv new_venv" to create a new venv under the new_dir
+Run the command "python3 -m venv new_venv" to create a new venv under the new_dir
 Run the command "source new_venv/bin/activate" to activate the new venv
 Run the command "deactivate" to deactivate the new venv if needed
 * the new venv folder "new_venv" will be located under new_dir
