@@ -27,5 +27,5 @@ urlpatterns = [
 
     path(r'swagger-docs/', schema_view),    # swagger docs
 
-    path(r'docs/', include_docs_urls(title='Polls API')),   # coreapi docs
+    path(r'coreapi-docs/', include_docs_urls(title='Polls API')),   # coreapi docs
 ]
