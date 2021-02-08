@@ -19,13 +19,12 @@ from django.urls import path, include, re_path
 from rest_framework_swagger.views import get_swagger_view       # swagger docs
 from rest_framework.documentation import include_docs_urls      # corepai docs
 
-schema_view = get_swagger_view(title='Polls API')
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     re_path(r'^', include('polls.urls')),
 
-    path(r'swagger-docs/', schema_view),    # swagger docs
+    path(r'swagger-docs/', get_swagger_view(title='Polls API')),    # swagger docs
 
     path(r'coreapi-docs/', include_docs_urls(title='Polls API')),   # coreapi docs
 ]
