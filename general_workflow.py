@@ -1,4 +1,9 @@
 # temp
+"""
+django
+djangorestframework
+django-rest-swagger
+"""
 
 # 0 create a folder for all code
 """
