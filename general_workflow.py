@@ -38,7 +38,7 @@ __pycache__/            pycache path
 
 # 3 create a Django project under the new venv
 """
-Run the command "django-admin startproject new_project ." to create a Django project
+Run the command "django-admin startproject new_project" to create a Django project
 * the project folders "new_project" will be located under new_dir
 The manage.py file is a command line utility used to interact with the project.
 The __init.py__ file is an empty file simply tells python to treat the project directory as a python module.
